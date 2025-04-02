@@ -61,9 +61,6 @@ Future<void> generatePDF(String mes, int numero) async {
                       ),
                     ],
                   ),
-                  pw.Text(
-                    'El dia 4 registrar solo si el ingreso fue despues de las 14:00',
-                  ),
                 ],
               ),
             ),
