@@ -9,7 +9,7 @@ import 'package:uniditos/helper/minutos_hora.dart';
 import 'package:uniditos/services/reporte_service.dart';
 
 Future<void> generatePDF(String mes, int numero) async {
-  var datos = await ReporteSerivce.getReporteMes(numero);
+  var datos = await ReporteSerivce.getReporteMes2025(numero);
 
   final pdf = pw.Document(pageMode: PdfPageMode.fullscreen);
   final profileImage = pw.MemoryImage(
@@ -78,19 +78,27 @@ Future<void> generatePDF(String mes, int numero) async {
                       data: <List<String>>[
                         <String>[
                           'Apellido y Nombre',
-                          'Horas',
-                          'Abono',
-                          'Importe',
+                          'TurnoMañana',
+                          'TurnoMedio',
+                          'TurnoTarde',
+                          'Total',
                         ],
                         ...datos[index].datos
                             .map(
                               (e) => [
                                 '${e.apellido.trim()}, ${e.nombre.trim()}',
                                 convertirMinutosAHorasMinutos(
-                                  e.totalMinutos.round(),
+                                  e.minutos1.toInt(),
                                 ),
-                                '',
-                                '',
+                                convertirMinutosAHorasMinutos(
+                                  e.minutos2.toInt(),
+                                ),
+                                convertirMinutosAHorasMinutos(
+                                  e.minutos3.toInt(),
+                                ),
+                                convertirMinutosAHorasMinutos(
+                                  e.totalMinutos.toInt(),
+                                ),
                               ],
                             )
                             .toList(),

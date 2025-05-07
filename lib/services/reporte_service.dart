@@ -11,6 +11,20 @@ class ReporteSerivce {
     'Authorization': 'Bearer $token',
   };
 
+  static Future<List<ReporteMes>> getReporteMes2025(int mes) async {
+    try {
+      String url = '$urlbase/movimientos/reportes/mes_nuevo/$mes';
+      final response = await http.get(Uri.parse(url), headers: headers);
+      if (response.statusCode == 200) {
+        return reoporteFromMap(response.body);
+      } else {
+        throw Exception('Failed to load reporte mes');
+      }
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
   static Future<List<ReporteMes>> getReporteMes(int mes) async {
     try {
       String url = '$urlbase/movimientos/reportes/mes/$mes';
