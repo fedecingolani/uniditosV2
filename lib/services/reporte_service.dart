@@ -13,7 +13,7 @@ class ReporteSerivce {
 
   static Future<List<ReporteMes>> getReporteMes(int mes) async {
     try {
-      String url = '$urlbase/movimientos/reportes/mes/$mes';
+      String url = '$urlbase/movimientos/reportes/mes_nuevo/$mes';
       final response = await http.get(Uri.parse(url), headers: headers);
       if (response.statusCode == 200) {
         return reoporteFromMap(response.body);

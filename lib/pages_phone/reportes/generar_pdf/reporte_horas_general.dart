@@ -78,19 +78,27 @@ Future<void> generatePDF(String mes, int numero) async {
                       data: <List<String>>[
                         <String>[
                           'Apellido y Nombre',
-                          'Horas',
-                          'Abono',
-                          'Importe',
+                          'TurnoMañana',
+                          'TurnoMedio',
+                          'TurnoTarde',
+                          'Total',
                         ],
                         ...datos[index].datos
                             .map(
                               (e) => [
                                 '${e.apellido.trim()}, ${e.nombre.trim()}',
                                 convertirMinutosAHorasMinutos(
+                                  e.minutos1.round(),
+                                ),
+                                convertirMinutosAHorasMinutos(
+                                  e.minutos2.round(),
+                                ),
+                                convertirMinutosAHorasMinutos(
+                                  e.minutos3.round(),
+                                ),
+                                convertirMinutosAHorasMinutos(
                                   e.totalMinutos.round(),
                                 ),
-                                '',
-                                '',
                               ],
                             )
                             .toList(),
@@ -113,12 +121,14 @@ Future<void> generatePDF(String mes, int numero) async {
   String fecha1 = '$mes${DateTime.now().second}';
   File file = File('$path/reportes/$fecha1.pdf');
 
-  if (Platform.isAndroid) {
+  if (Platform.isAndroid || Platform.isMacOS) {
     await file.writeAsBytes(await pdf.save());
     OpenFile.open('$path/reportes/$fecha1.pdf').then((value) {
-      Future.delayed(const Duration(seconds: 2), () {
-        file.delete();
-      });
+      if (Platform.isAndroid) {
+        Future.delayed(const Duration(seconds: 2), () {
+          file.delete();
+        });
+      }
     });
   } else {
     print(file.path);

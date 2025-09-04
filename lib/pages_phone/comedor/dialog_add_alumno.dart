@@ -4,6 +4,7 @@ import 'package:uniditos/entities/alumnos.dart';
 import 'package:uniditos/models/comedor_create.dart';
 import 'package:uniditos/services/alumnos_service.dart';
 import 'package:uniditos/services/comedor_service.dart';
+import 'package:uniditos/services/settings.dart';
 
 class DialogAddComedor extends StatefulWidget {
   final int? alumnoId;
@@ -20,7 +21,7 @@ class _DialogAddComedorState extends State<DialogAddComedor> {
 
   DateTime _selectedFecha = DateTime.now();
 
-  double _importe = 2000;
+  double _importe = precioComedor;
 
   List<Alumnos> _alumnos = [];
 
