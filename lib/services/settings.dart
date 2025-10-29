@@ -7,7 +7,7 @@ String token = '';
 bool docente = false;
 Map<String, dynamic> payload = {};
 User? userApp;
-String versionApp = '1.6.1';
+String versionApp = '1.6.2';
 
 //Precio del comedor
-double precioComedor = 2800;
+double precioComedor = 3000;
